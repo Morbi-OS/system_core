@@ -510,6 +510,8 @@ std::vector<std::string> DeviceHandler::GetBlockDeviceSymlinks(const Uevent& uev
 
     auto link_path = "/dev/block/" + info.type + "/" + info.str;
 
+    bool is_boot_device = boot_devices_.find(device) != boot_devices_.end() ||
+        boot_devices_.find("any") != boot_devices_.end();
     if (!uevent.partition_name.empty()) {
         std::string partition_name_sanitized(uevent.partition_name);
         SanitizePartitionName(&partition_name_sanitized);
