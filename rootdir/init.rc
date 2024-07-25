@@ -541,6 +541,9 @@ on early-fs
 on post-fs
     exec - system system -- /system/bin/vdc checkpoint markBootAttempt
 
+    # Zram
+    write /proc/sys/vm/page-cluster 0
+
     # Once everything is setup, no need to modify /.
     # The bind+remount combination allows this to work in containers.
     mount rootfs rootfs / remount bind ro nodev
